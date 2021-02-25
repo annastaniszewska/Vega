@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using vega.Controllers.Resources;
 using vega.Models;
@@ -11,6 +12,12 @@ namespace vega.Mapping
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResource>();
             CreateMap<Feature, FeatureResource>();
+
+            CreateMap<VehicleResource, Vehicle>()
+            .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
+            .ForMember(v => v.ContactEmail, opt => opt.MapFrom(vr => vr.Contact.Email))
+            .ForMember(v => v.ContactPhone, opt => opt.MapFrom(vr => vr.Contact.Phone))
+            .ForMember(v => v.Features, opt => opt.MapFrom(vr => vr.Features.Select(id => new Feature { Id = id })));
         }
     }
 }

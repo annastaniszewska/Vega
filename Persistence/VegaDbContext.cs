@@ -27,6 +27,9 @@ namespace vega.Persistence
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Model>()
+                .ToTable("Models");
+
+            modelBuilder.Entity<Model>()
                 .HasOne(m => m.Make)
                 .WithMany(m => m.Models)
                 .HasForeignKey(m => m.MakeId);
