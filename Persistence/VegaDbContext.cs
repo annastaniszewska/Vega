@@ -53,10 +53,8 @@ namespace vega.Persistence
                 .IsRequired()
                 .HasMaxLength(255);
 
-            modelBuilder.Entity<Vehicle>()
-                .HasMany(v => v.Features)
-                .WithMany(f => f.Vehicles)
-                .UsingEntity(join => join.ToTable("VehicleFeatures"));
+            modelBuilder.Entity<VehicleFeature>()
+                .HasKey(vf => new { vf.VehicleId, vf.FeatureId });
 
             base.OnModelCreating(modelBuilder);
         }

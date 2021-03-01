@@ -14,11 +14,11 @@ namespace vega.Models
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
         public DateTime LastUpdate { get; set; }
-        public ICollection<Feature> Features { get; set; }
+        public ICollection<VehicleFeature> Features { get; set; }
 
         public Vehicle()
         {
-            Features = new Collection<Feature>();
+            Features = new Collection<VehicleFeature>();
         }
     }
 }

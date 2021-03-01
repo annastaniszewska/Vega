@@ -19,21 +19,6 @@ namespace Vega.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FeatureVehicle", b =>
-                {
-                    b.Property<int>("FeaturesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehiclesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeaturesId", "VehiclesId");
-
-                    b.HasIndex("VehiclesId");
-
-                    b.ToTable("VehicleFeatures");
-                });
-
             modelBuilder.Entity("vega.Models.Feature", b =>
                 {
                     b.Property<int>("Id")
@@ -127,19 +112,19 @@ namespace Vega.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("FeatureVehicle", b =>
+            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
                 {
-                    b.HasOne("vega.Models.Feature", null)
-                        .WithMany()
-                        .HasForeignKey("FeaturesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
 
-                    b.HasOne("vega.Models.Vehicle", null)
-                        .WithMany()
-                        .HasForeignKey("VehiclesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VehicleId", "FeatureId");
+
+                    b.HasIndex("FeatureId");
+
+                    b.ToTable("VehicleFeatures");
                 });
 
             modelBuilder.Entity("vega.Models.Model", b =>
@@ -164,9 +149,33 @@ namespace Vega.Migrations
                     b.Navigation("Model");
                 });
 
+            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
+                {
+                    b.HasOne("vega.Models.Feature", "Feature")
+                        .WithMany()
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vega.Models.Vehicle", "Vehicle")
+                        .WithMany("Features")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("vega.Models.Make", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("vega.Models.Vehicle", b =>
+                {
+                    b.Navigation("Features");
                 });
 #pragma warning restore 612, 618
         }

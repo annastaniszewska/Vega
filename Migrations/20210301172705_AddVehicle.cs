@@ -35,30 +35,30 @@ namespace Vega.Migrations
                 name: "VehicleFeatures",
                 columns: table => new
                 {
-                    FeaturesId = table.Column<int>(type: "int", nullable: false),
-                    VehiclesId = table.Column<int>(type: "int", nullable: false)
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    FeatureId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleFeatures", x => new { x.FeaturesId, x.VehiclesId });
+                    table.PrimaryKey("PK_VehicleFeatures", x => new { x.VehicleId, x.FeatureId });
                     table.ForeignKey(
-                        name: "FK_VehicleFeatures_Features_FeaturesId",
-                        column: x => x.FeaturesId,
+                        name: "FK_VehicleFeatures_Features_FeatureId",
+                        column: x => x.FeatureId,
                         principalTable: "Features",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VehicleFeatures_Vehicles_VehiclesId",
-                        column: x => x.VehiclesId,
+                        name: "FK_VehicleFeatures_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleFeatures_VehiclesId",
+                name: "IX_VehicleFeatures_FeatureId",
                 table: "VehicleFeatures",
-                column: "VehiclesId");
+                column: "FeatureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_ModelId",
