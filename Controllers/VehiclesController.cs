@@ -49,7 +49,7 @@ namespace vega.Controllers
 
             if (vehicle == null)
             {
-                return BadRequest("No vehicle with given Id.");
+                return NotFound("No vehicle with given Id.");
             }
 
             mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
@@ -65,20 +65,34 @@ namespace vega.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicleAsync(int id)
         {
-             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var vehicleToRemove = await context.Vehicles.FindAsync(id);
 
             if (vehicleToRemove == null)
             {
-                return BadRequest("No vehicle with given Id.");
+                return NotFound("No vehicle with given Id.");
             }
 
             context.Remove(vehicleToRemove);
             await context.SaveChangesAsync();
 
             return Ok(id);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehicleAsync(int id)
+        {
+            var vehicle = await context.Vehicles
+                                .Include(v => v.Features)
+                                .SingleOrDefaultAsync(v => v.Id == id);
+
+            if (vehicle == null)
+            {
+                return NotFound("No vehicle with given Id.");
+            }
+
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+            return Ok(result);
         }
     }
 }
