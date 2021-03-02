@@ -61,5 +61,24 @@ namespace vega.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicleAsync(int id)
+        {
+             if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var vehicleToRemove = await context.Vehicles.FindAsync(id);
+
+            if (vehicleToRemove == null)
+            {
+                return BadRequest("No vehicle with given Id.");
+            }
+
+            context.Remove(vehicleToRemove);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
+        }
     }
 }
