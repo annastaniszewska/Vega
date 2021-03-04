@@ -8,6 +8,7 @@ using vega.Core.Models;
 
 namespace vega.Controllers
 {
+    [ApiController]
     [Route("/api/vehicles")]
     public class VehiclesController : Controller
     {
@@ -29,7 +30,7 @@ namespace vega.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
 
