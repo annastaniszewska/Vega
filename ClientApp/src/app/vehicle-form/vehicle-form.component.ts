@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from 'src/services/vehicle.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class VehicleFormComponent implements OnInit {
   };
 
   constructor(
-    private vehicleService: VehicleService) { }
+    private vehicleService: VehicleService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.vehicleService.getMakes().subscribe(makes => 
@@ -43,7 +45,13 @@ export class VehicleFormComponent implements OnInit {
 
   submit() {
     this.vehicleService.create(this.vehicle)
-      .subscribe(x => console.log(x));
+      .subscribe(x => console.log(x), 
+      err => {
+        this.toastr.error('An unexpected error happened.', 'Error', {
+          closeButton: true,
+          timeOut: 5000
+        })
+      });
   }
 
   formChanged(): void {
