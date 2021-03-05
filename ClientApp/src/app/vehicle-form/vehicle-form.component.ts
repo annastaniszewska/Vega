@@ -45,13 +45,7 @@ export class VehicleFormComponent implements OnInit {
 
   submit() {
     this.vehicleService.create(this.vehicle)
-      .subscribe(x => console.log(x), 
-      err => {
-        this.toastr.error('An unexpected error happened.', 'Error', {
-          closeButton: true,
-          timeOut: 5000
-        })
-      });
+      .subscribe(x => console.log(x));
   }
 
   formChanged(): void {
