@@ -29,4 +29,9 @@ export class VehicleService {
     return this.http.get('/api/vehicles/' + id)
       .pipe(map((res: any) => res));
   }
+
+  delete(id) {
+    return this.http.delete('api/vehicles/' + id)
+      .pipe(map((res: any) => res));
+  }
 }
