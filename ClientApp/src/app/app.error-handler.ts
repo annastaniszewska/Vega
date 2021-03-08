@@ -20,8 +20,7 @@ export class AppErrorHandler implements ErrorHandler {
             
         this.ngZone.run(() => {
             this.toastr.error('An unexpected error happened.', 'Error', {
-                closeButton: true,
-                timeOut: 5000
+                closeButton: true
             });
         })
     }

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import * as _ from 'underscore';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,7 +32,8 @@ export class VehicleFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private vehicleService: VehicleService) { 
+    private vehicleService: VehicleService,
+    private toastr: ToastrService) { 
       route.params.subscribe(p => {
         this.vehicle.id = +p['id'];
       })
@@ -88,8 +90,18 @@ export class VehicleFormComponent implements OnInit {
   }
 
   submit() {
-    this.vehicleService.create(this.vehicle)
-      .subscribe(x => console.log(x));
+    if (this.vehicle.id){
+      this.vehicleService.update(this.vehicle)
+        .subscribe(x => {
+          this.toastr.success('The vehicle was successfully updated.', 'Success', {
+            closeButton: true
+          });
+        });
+    }
+    else {
+      this.vehicleService.create(this.vehicle)
+        .subscribe(x => console.log(x));
+    }
   }
 
   delete() {
