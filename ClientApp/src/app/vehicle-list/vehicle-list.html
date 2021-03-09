@@ -1,9 +1,21 @@
 <h2>Vehicles</h2>
 <p *ngIf="!vehicles"><em>Loading...</em></p>
 <p>
-    <a [routerLink]="['/vehicles/new']" class="btn btn-primary">New Vehicle</a>
+    <a [routerLink]="['/vehicles/new']" class="btn btn-dark" >New Vehicle</a>
 </p>
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="vehicles">
+<div class="card bg-light">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="make">Make</label>
+            <select id="make" class="form-control" [(ngModel)]="filter.makeId" (change)="onFilterChange()">
+                <option value=""></option>
+                <option *ngFor="let m of makes" value="{{ m.id }}">{{ m.name }}</option>
+            </select>
+        </div>
+        <button class="btn btn-outline-secondary btn-sm" (click)="resetFilter()">Reset</button>
+    </div>
+</div>
+<table class='table' aria-labelledby="tableLabel" *ngIf="vehicles">
     <thead>
         <tr>
             <th>Id</th>
