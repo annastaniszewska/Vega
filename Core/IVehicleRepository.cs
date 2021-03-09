@@ -8,7 +8,7 @@ namespace vega.Core
     {
         Task<Vehicle> GetVehicle(int id);
         Task<Vehicle> GetVehicleWithParameters(int id);
-        Task<IEnumerable<Vehicle>> GetVehicles();
+        Task<IEnumerable<Vehicle>> GetVehicles(Filter filter);
         void Add(Vehicle vehicle);
         void Remove(Vehicle vehicle);
     }
