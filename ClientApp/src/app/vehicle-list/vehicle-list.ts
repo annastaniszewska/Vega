@@ -12,6 +12,13 @@ export class VehicleListComponent implements OnInit {
     makes: any[];
     models: any[];
     query: any = {};
+    columns = [
+        { title: 'Id' },
+        { title: 'Make', key: 'make', isSortable: true },
+        { title: 'Model', key: 'model', isSortable: true },
+        { title: 'Contact Name', key: 'contactName', isSortable: true },
+        { }
+    ];
 
     constructor(private vehicleService: VehicleService) { }
     
