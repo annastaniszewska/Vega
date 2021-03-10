@@ -9,7 +9,8 @@ import { VehicleService } from "src/services/vehicle.service";
 
 export class VehicleListComponent implements OnInit {
     vehicles: Vehicle[];
-    makes: KeyValuePair[];
+    makes: any[];
+    models: any[];
     filter: any = {};
 
     constructor(private vehicleService: VehicleService) { }
@@ -24,6 +25,11 @@ export class VehicleListComponent implements OnInit {
     private populateVehicles() {
         this.vehicleService.getVehicles(this.filter)
             .subscribe(vehicles => this.vehicles = vehicles);
+    }
+
+    onMakeChange() {
+        var selectedMake = this.makes.find(m => m.id == this.filter.makeId);
+        this.models = selectedMake ? selectedMake.models : [];
     }
 
     onFilterChange() {
