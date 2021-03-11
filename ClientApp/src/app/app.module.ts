@@ -1,3 +1,4 @@
+import { PaginationComponent } from './shared/pagination.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list';
 import { AppErrorHandler } from './app.error-handler';
 import { ErrorHandler } from '@angular/core';
@@ -25,7 +26,8 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     CounterComponent,
     FetchDataComponent,
     VehicleFormComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
