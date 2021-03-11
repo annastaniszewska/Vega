@@ -8,7 +8,7 @@ import { VehicleService } from "src/services/vehicle.service";
 })
 
 export class VehicleListComponent implements OnInit {
-    vehicles: Vehicle[];
+    queryResult: any = {};
     makes: any[];
     models: any[];
     query: any = {
@@ -33,7 +33,7 @@ export class VehicleListComponent implements OnInit {
 
     private populateVehicles() {
         this.vehicleService.getVehicles(this.query)
-            .subscribe(vehicles => this.vehicles = vehicles);
+            .subscribe(result => this.queryResult = result);
     }
 
     onMakeChange() {
