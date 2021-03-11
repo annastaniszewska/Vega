@@ -57,6 +57,14 @@ namespace vega.Persistence
 			
             query = query.ApplyOrdering(queryObj, columnsMap);
             
+            if(!queryObj.Page.HasValue)
+                queryObj.Page = 1;
+
+            if (!queryObj.PageSize.HasValue)
+                queryObj.PageSize = 10;
+            
+            query = query.OrderBy(q => q.Id).ApplyPaging(queryObj);
+
             return await query.ToListAsync();
         }
 
