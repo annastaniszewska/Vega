@@ -35,7 +35,7 @@ export class VehicleFormComponent implements OnInit {
     private vehicleService: VehicleService,
     private toastr: ToastrService) { 
       route.params.subscribe(p => {
-        this.vehicle.id = +p['id'];
+        this.vehicle.id = +p['id'] || 0;
       })
     }
 
@@ -90,26 +90,16 @@ export class VehicleFormComponent implements OnInit {
   }
 
   submit() {
-    if (this.vehicle.id){
-      this.vehicleService.update(this.vehicle)
-        .subscribe(x => {
-          this.toastr.success('The vehicle was successfully updated.', 'Success', {
-            closeButton: true
-          });
+    var result$= (this.vehicle.id) ? this.vehicleService.update(this.vehicle) : this.vehicleService.create(this.vehicle);
+      result$.subscribe(vehicle => {
+        this.toastr.success('The vehicle was successfully saved.', 'Success', {
+          closeButton: true
         });
-    }
-    else {
-      this.vehicleService.create(this.vehicle)
-        .subscribe(x => console.log(x));
-    }
+      this.router.navigate(['/vehicles/', vehicle.id])
+    });
   }
 
-  delete() {
-    if (confirm("Are you sure you want to delete the vehicle?")) {
-      this.vehicleService.delete(this.vehicle.id)
-        .subscribe(x => {
-          this.router.navigate(['/']);
-        });
-    }
+  formChanged(): void {
+    this.vehicle.modelId = +this.vehicle.modelId;
   }
 }
