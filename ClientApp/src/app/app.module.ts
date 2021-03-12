@@ -1,3 +1,4 @@
+import { ViewVehicleComponent } from './view-vehicle/view-vehicle';
 import { PaginationComponent } from './shared/pagination.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list';
 import { AppErrorHandler } from './app.error-handler';
@@ -27,6 +28,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     FetchDataComponent,
     VehicleFormComponent,
     VehicleListComponent,
+    ViewVehicleComponent,
     PaginationComponent
   ],
   imports: [
@@ -38,10 +40,9 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     RouterModule.forRoot([
       { path: '', component: VehicleListComponent, pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent },
-      { path: 'vehicles/:id', component: VehicleFormComponent },
-      { path: 'vehicles', component: VehicleListComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: ViewVehicleComponent },
+      { path: 'vehicles', component: VehicleListComponent }
     ])
   ],
   providers: [

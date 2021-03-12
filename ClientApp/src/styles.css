@@ -14,3 +14,12 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.nav.nav-tabs {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  margin: 2px;
+}
