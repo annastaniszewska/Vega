@@ -37,6 +37,7 @@
         <div class="tab-pane fade" role="tabpanel" id="photos" arialabelledby="photos-tab">
             <h3>Photos</h3>
             <input type="file" (change)="uploadPhoto()" #fileInput>
+            <img *ngFor="let photo of photos" src="/{{ photo.fileName }}" class="img-thumbnail">
         </div>
     </div>
 </div>

@@ -4,5 +4,6 @@ namespace vega.Core.Models
     {
         public int Id { get; set; }
         public string FileName { get; set; }
+        public int VehicleId { get; set; }
     }
 }
