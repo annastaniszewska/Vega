@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { VehicleService } from 'src/services/vehicle.service';
 import { PhotoService } from 'src/services/photo.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
     templateUrl: 'view-vehicle.html'
@@ -58,7 +59,15 @@ export class ViewVehicleComponent implements OnInit {
 
             this.photoService.upload(this.vehicleId, nativeElement.files[0])
                 .subscribe(photo => {
-                    this.photos.push(photo);
+
+                    if (photo.type === HttpEventType.UploadProgress){
+                        const percentDone = Math.round(100 * photo.loaded / photo.total);
+                        console.log(`File is ${percentDone}% uploaded.`);
+                    }
+                    else if (photo instanceof HttpResponse){
+                        console.log('File is completely uploaded!');
+                        this.photos.push(photo.body);
+                    }
                 });
         }
 

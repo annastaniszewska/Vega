@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,8 @@ export class PhotoService {
         var formData = new FormData();
         formData.append('file', photo);
         
-        return this.http.post(`/api/vehicles/${vehicleId}/photos`, formData)
+        return this.http.post(`/api/vehicles/${vehicleId}/photos`, formData, { 
+            reportProgress: true, observe: 'events' })
             .pipe(map((res: any) => res));
     }
 
