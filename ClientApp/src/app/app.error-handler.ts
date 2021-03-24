@@ -13,15 +13,15 @@ export class AppErrorHandler implements ErrorHandler {
         }
 
     handleError(error: any): void {
-        if (!isDevMode())
-            Sentry.captureException(error.originalError || error)
-        else
-            throw error;
-            
         this.ngZone.run(() => {
             this.toastr.error('An unexpected error happened.', 'Error', {
                 closeButton: true
             });
+
+        if (!isDevMode())
+            Sentry.captureException(error.originalError || error)
+        else
+            throw error;
         })
     }
 }
