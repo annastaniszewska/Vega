@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { VehicleService } from 'src/services/vehicle.service';
 import { PhotoService } from 'src/services/photo.service';
@@ -14,8 +14,10 @@ export class ViewVehicleComponent implements OnInit {
     vehicle: any;
     vehicleId: number;
     photos: any[];
+    progress: any;
 
     constructor(
+        private zone: NgZone,
         private route: ActivatedRoute,
         private router: Router,
         private toastr: ToastrService,
@@ -58,16 +60,23 @@ export class ViewVehicleComponent implements OnInit {
             var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
 
             this.photoService.upload(this.vehicleId, nativeElement.files[0])
-                .subscribe(photo => {
-
-                    if (photo.type === HttpEventType.UploadProgress){
-                        const percentDone = Math.round(100 * photo.loaded / photo.total);
-                        console.log(`File is ${percentDone}% uploaded.`);
-                    }
-                    else if (photo instanceof HttpResponse){
-                        console.log('File is completely uploaded!');
-                        this.photos.push(photo.body);
-                    }
+                .subscribe({
+                    next: (photo => {
+                        if (photo.type === HttpEventType.UploadProgress){
+                            const percentDone = Math.round(100 * photo.loaded / photo.total);
+                            this.zone.run(() => {
+                                this.progress = percentDone;
+                            });
+                            
+                            console.log(`File is ${percentDone}% uploaded.`);
+                        }
+                        else if (photo instanceof HttpResponse){
+                            console.log('File is completely uploaded!');
+                            this.photos.push(photo.body);
+                        }
+                    }),
+                    error: null,
+                    complete: (() => { this.progress = null })
                 });
         }
 

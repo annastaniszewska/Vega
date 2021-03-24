@@ -37,6 +37,11 @@
         <div class="tab-pane fade" role="tabpanel" id="photos" arialabelledby="photos-tab">
             <h3>Photos</h3>
             <input type="file" (change)="uploadPhoto()" #fileInput>
+            <div class="progress" *ngIf="progress && progress < 100">
+                <div class="progress-bar progress-bar-striped" [style.width]="progress + '%'">
+                    <span class="sr-only">{{ progress }}% Complete</span>
+                </div>
+            </div>
             <img *ngFor="let photo of photos" src="/{{ photo.fileName }}" class="img-thumbnail">
         </div>
     </div>
