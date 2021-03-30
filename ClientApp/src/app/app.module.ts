@@ -19,6 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,11 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
       { path: 'vehicles/edit/:id', component: VehicleFormComponent },
       { path: 'vehicles/:id', component: ViewVehicleComponent },
       { path: 'vehicles', component: VehicleListComponent }
-    ])
+    ]),
+    AuthModule.forRoot({
+      domain: 'vega-app.eu.auth0.com',
+      clientId: '8AJy8jJ6xvbFwvGxSCiO6xCWK166mB6h'
+    }),
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
