@@ -1,3 +1,4 @@
+import { AuthButtonComponent } from './../services/auth.service';
 import { PhotoService } from './../services/photo.service';
 import { ViewVehicleComponent } from './view-vehicle/view-vehicle';
 import { PaginationComponent } from './shared/pagination.component';
@@ -31,7 +32,8 @@ import { AuthModule } from '@auth0/auth0-angular';
     VehicleFormComponent,
     VehicleListComponent,
     ViewVehicleComponent,
-    PaginationComponent
+    PaginationComponent,
+    AuthButtonComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -54,7 +56,8 @@ import { AuthModule } from '@auth0/auth0-angular';
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
     VehicleService,
-    PhotoService
+    PhotoService,
+    AuthButtonComponent
   ],
   bootstrap: [AppComponent]
 })
