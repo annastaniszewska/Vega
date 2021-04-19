@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin.component';
 import { AuthButtonComponent } from './../services/auth.service';
 import { PhotoService } from './../services/photo.service';
 import { ViewVehicleComponent } from './view-vehicle/view-vehicle';
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, AuthGuard } from '@auth0/auth0-angular';
+import { UserProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { AuthModule } from '@auth0/auth0-angular';
     VehicleListComponent,
     ViewVehicleComponent,
     PaginationComponent,
-    AuthButtonComponent
+    AuthButtonComponent,
+    UserProfileComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,7 +50,8 @@ import { AuthModule } from '@auth0/auth0-angular';
       { path: 'vehicles/new', component: VehicleFormComponent },
       { path: 'vehicles/edit/:id', component: VehicleFormComponent },
       { path: 'vehicles/:id', component: ViewVehicleComponent },
-      { path: 'vehicles', component: VehicleListComponent }
+      { path: 'vehicles', component: VehicleListComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
     ]),
     AuthModule.forRoot({
       domain: 'vega-app.eu.auth0.com',

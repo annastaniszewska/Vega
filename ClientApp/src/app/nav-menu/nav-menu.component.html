@@ -33,6 +33,11 @@
             >
           </li>
           <app-auth-button></app-auth-button>
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="auth.user$ | async as user">
+            <a class="nav-link text-dark" [routerLink]="['/admin']"
+              >Admin</a
+            >
+          </li>
         </ul>
       </div>
     </div>
