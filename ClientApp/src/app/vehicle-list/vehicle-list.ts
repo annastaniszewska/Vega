@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "@auth0/auth0-angular";
 import { KeyValuePair } from "src/models/keyValuePair";
 import { Vehicle } from "src/models/vehicle";
 import { VehicleService } from "src/services/vehicle.service";
@@ -24,7 +25,7 @@ export class VehicleListComponent implements OnInit {
         { }
     ];
 
-    constructor(private vehicleService: VehicleService) { }
+    constructor(public auth: AuthService, private vehicleService: VehicleService) { }
     
     ngOnInit(): void {
         this.vehicleService.getMakes()

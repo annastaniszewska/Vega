@@ -24,6 +24,7 @@
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
+            *ngIf="auth.user$ | async as user"
           >
             <a class="nav-link text-dark" [routerLink]="['/vehicles/new']">New Vehicle</a>
           </li>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { VehicleService } from 'src/services/vehicle.service';
 import { PhotoService } from 'src/services/photo.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
     templateUrl: 'view-vehicle.html'
@@ -17,6 +18,7 @@ export class ViewVehicleComponent implements OnInit {
     progress: any;
 
     constructor(
+        public auth: AuthService,
         private zone: NgZone,
         private route: ActivatedRoute,
         private router: Router,
