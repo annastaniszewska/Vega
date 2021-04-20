@@ -17,9 +17,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { VehicleService } from '../services/vehicle.service';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { AuthModule, AuthGuard } from '@auth0/auth0-angular';
 import { UserProfileComponent } from './profile/profile.component';
@@ -28,9 +25,6 @@ import { UserProfileComponent } from './profile/profile.component';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     VehicleFormComponent,
     VehicleListComponent,
     ViewVehicleComponent,
