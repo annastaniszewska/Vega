@@ -20,6 +20,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { AuthModule, AuthGuard } from '@auth0/auth0-angular';
 import { UserProfileComponent } from './profile/profile.component';
+import { AuthHttpInterceptorExtended } from 'src/services/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -49,11 +50,25 @@ import { UserProfileComponent } from './profile/profile.component';
     ]),
     AuthModule.forRoot({
       domain: 'vega-app.eu.auth0.com',
-      clientId: '8AJy8jJ6xvbFwvGxSCiO6xCWK166mB6h'
+      clientId: '8AJy8jJ6xvbFwvGxSCiO6xCWK166mB6h',
+      responseType: 'token',
+      audience: 'https://api.vega.com',
+      httpInterceptor: {
+        allowedList: [
+          '/api/vehicles',
+          {
+            uri: 'https://api.vega.com/*',
+            tokenOptions: {
+              audience: 'https://api.vega.com'
+            }
+          }
+        ]
+      }
     }),
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorExtended, multi: true },
     VehicleService,
     PhotoService,
     AuthButtonComponent

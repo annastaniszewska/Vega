@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vega.Controllers.Resources;
 using vega.Core;
@@ -27,6 +27,7 @@ namespace vega.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateVehicleAsync([FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
