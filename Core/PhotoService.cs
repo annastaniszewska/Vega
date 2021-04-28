@@ -9,24 +9,17 @@ namespace vega.Core
     public class PhotoService : IPhotoService
     {
         private readonly IUnitOfWork unitOfWork;
-        public PhotoService(IUnitOfWork unitOfWork)
+        private readonly IPhotoStorage photoStorage;
+
+        public PhotoService(IUnitOfWork unitOfWork, IPhotoStorage photoStorage)
         {
             this.unitOfWork = unitOfWork;
-
+            this.photoStorage = photoStorage;
         }
 
         public async Task<Photo> UploadPhoto(Vehicle vehicle, IFormFile file, string uploadsFolderPath)
         {
-            if (!Directory.Exists(uploadsFolderPath))
-                Directory.CreateDirectory(uploadsFolderPath);
-
-            var filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filepath = Path.Combine(uploadsFolderPath, filename);
-
-            using (var stream = new FileStream(filepath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            var filename = await photoStorage.StorePhoto(uploadsFolderPath, file);
 
             var photo = new Photo { FileName = filename };
             vehicle.Photos.Add(photo);
