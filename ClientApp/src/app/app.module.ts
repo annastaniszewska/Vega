@@ -1,3 +1,4 @@
+import { DoughnutChartComponent } from './shared/doughnut-chart.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthButtonComponent } from './../services/auth.service';
 import { PhotoService } from './../services/photo.service';
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+import { ChartsModule } from 'ng2-charts';
 import { VehicleService } from '../services/vehicle.service';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -32,7 +34,8 @@ import { AuthHttpInterceptorExtended } from 'src/services/http-interceptor.servi
     PaginationComponent,
     AuthButtonComponent,
     UserProfileComponent,
-    AdminComponent
+    AdminComponent,
+    DoughnutChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,6 +43,7 @@ import { AuthHttpInterceptorExtended } from 'src/services/http-interceptor.servi
     ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    ChartsModule,
     RouterModule.forRoot([
       { path: '', component: VehicleListComponent, pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuard] },
