@@ -20,7 +20,7 @@ The main page consists of vehicles list. It is available for non-authorized user
 
 Non-authorized user is able to display vehicle details and photos.
 
-![newVehicle](https://user-images.githubusercontent.com/55839520/116467584-22e26d00-a870-11eb-9d5b-a3d23a1f1ba9.png)
+![vehiclePage](https://user-images.githubusercontent.com/55839520/116535319-ecded080-a8e3-11eb-9b6e-9fb5255f5eee.png)
 
 ![photosPage](https://user-images.githubusercontent.com/55839520/116467694-41e0ff00-a870-11eb-8e9d-17184abdaea7.png)
 
